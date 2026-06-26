@@ -1,7 +1,5 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <HelloWorld />
+  <div class="container mt-3">
+    <router-view />
+  </div>
 </template>
