@@ -1,7 +1,8 @@
 <template>
   <Form @submit="submitContact" :validation-schema="contactFormSchema">
-    <div class="form-group">
-      <label for="name">Tên</label>
+
+    <div class="mb-3">
+      <label for="name" class="form-label">Tên</label>
       <Field
         name="name"
         type="text"
@@ -11,8 +12,8 @@
       <ErrorMessage name="name" class="error-feedback" />
     </div>
 
-    <div class="form-group">
-      <label for="email">E-mail</label>
+    <div class="mb-3">
+      <label for="email" class="form-label">E-mail</label>
       <Field
         name="email"
         type="email"
@@ -22,8 +23,8 @@
       <ErrorMessage name="email" class="error-feedback" />
     </div>
 
-    <div class="form-group">
-      <label for="address">Địa chỉ</label>
+    <div class="mb-3">
+      <label for="address" class="form-label">Địa chỉ</label>
       <Field
         name="address"
         type="text"
@@ -33,8 +34,8 @@
       <ErrorMessage name="address" class="error-feedback" />
     </div>
 
-    <div class="form-group">
-      <label for="phone">Điện thoại</label>
+    <div class="mb-3">
+      <label for="phone" class="form-label">Điện thoại</label>
       <Field
         name="phone"
         type="tel"
@@ -44,25 +45,27 @@
       <ErrorMessage name="phone" class="error-feedback" />
     </div>
 
-    <div class="form-group form-check">
+    <div class="form-check mb-3">
       <Field
         name="favorite"
         type="checkbox"
         class="form-check-input"
         v-model="contactLocal.favorite"
       />
-      <label for="favorite" class="form-check-label">
-        <strong>Liên hệ yêu thích</strong>
+      <label class="form-check-label" for="favorite">
+        Liên hệ yêu thích
       </label>
     </div>
 
-    <div class="form-group">
-      <button class="btn btn-primary">Lưu</button>
+    <div class="text-center mt-3">
+      <button class="btn btn-primary">
+        Lưu
+      </button>
 
       <button
         v-if="contactLocal._id"
         type="button"
-        class="ml-2 btn btn-danger"
+        class="btn btn-danger ms-2"
         @click="deleteContact"
       >
         Xóa
@@ -70,14 +73,16 @@
 
       <button
         type="button"
-        class="ml-2 btn btn-danger"
+        class="btn btn-secondary ms-2"
         @click="Cancel"
       >
         Thoát
       </button>
     </div>
+
   </Form>
 </template>
+
 <script>
 import * as yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
@@ -111,7 +116,9 @@ export default {
         .email("E-mail không đúng.")
         .max(50, "E-mail tối đa 50 ký tự."),
 
-      address: yup.string().max(100, "Địa chỉ tối đa 100 ký tự."),
+      address: yup
+        .string()
+        .max(100, "Địa chỉ tối đa 100 ký tự."),
 
       phone: yup
         .string()
@@ -122,7 +129,7 @@ export default {
     });
 
     return {
-      contactLocal: this.contact,
+      contactLocal: { ...this.contact },
       contactFormSchema,
     };
   },
@@ -141,9 +148,7 @@ export default {
         "You have unsaved changes! Do you want to leave?"
       );
 
-      if (!reply) {
-        return false;
-      } else {
+      if (reply) {
         this.$router.push({ name: "contactbook" });
       }
     },
@@ -154,3 +159,26 @@ export default {
 <style scoped>
 @import "../assets/form.css";
 </style>
+form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-control {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 12px;
+}
+
+label {
+    display: block;
+    text-align: center;
+}
+
+.form-check {
+    text-align: center;
+}
+
+button {
+    margin-right: 8px;
+}

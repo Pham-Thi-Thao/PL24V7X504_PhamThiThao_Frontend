@@ -1,13 +1,13 @@
 <template>
-  <div v-if="contact" class="page">
-    <h4>Thêm Liên hệ</h4>
+  <div class="page">
+    <h4 class="text-center">Thêm Liên hệ</h4>
 
     <ContactForm
       :contact="contact"
       @submit:contact="createContact"
     />
 
-    <p>{{ message }}</p>
+    <p class="text-center mt-3">{{ message }}</p>
   </div>
 </template>
 
@@ -35,18 +35,15 @@ export default {
 
   methods: {
     async createContact(data) {
-    console.log(data);
-
-    try {
-        const result = await ContactService.create(data);
-        console.log(result);
+      try {
+        await ContactService.create(data);
         alert("Liên hệ được thêm thành công.");
         this.$router.push({ name: "contactbook" });
-    } catch (error) {
+      } catch (error) {
         console.log(error);
         alert(JSON.stringify(error.response?.data || error.message));
-    }
-}
+      }
+    },
   },
 };
 </script>
